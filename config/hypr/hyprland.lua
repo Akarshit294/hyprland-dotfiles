@@ -284,6 +284,14 @@ hl.window_rule({
     opacity = "0.82",
 })
 
+-- Discord a little see-through, like the file manager.
+hl.window_rule({
+    name  = "glass-discord",
+    match = { class = "discord" },
+
+    opacity = "0.70",
+})
+
 -- Blur the desktop behind the power menu (wlogout), so its buttons are easy to read.
 hl.layer_rule({
     name  = "blur-power-menu",
