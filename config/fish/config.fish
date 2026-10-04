@@ -8,6 +8,10 @@ function fish_user_key_bindings
 
   # set kj to <Esc>
   bind -M insert -m default kj backward-char force-repaint
+
+  # delete a whole word: shift + backspace before the cursor, shift + delete after it
+  bind -M insert shift-backspace backward-kill-word
+  bind -M insert shift-delete kill-word
 end
 
 # remove default clock
