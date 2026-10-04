@@ -74,6 +74,7 @@ fish_add_path -g ~/.local/bin # claude lives here
 
 # aliases
 alias cls "clear" # clear
+alias D: "cd /mnt/d"
 
 # set editor
 # set -x EDITOR "code" # his line. VS Code is not installed here yet.
