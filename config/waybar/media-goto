@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+# Goes to the window of the app that is playing (or played last).
+# The bar runs this when the media title is clicked.
+
+import json
+import subprocess
+
+
+def run(*cmd):
+    return subprocess.run(cmd, capture_output=True, text=True).stdout.strip()
+
+
+# Players, most recently used first. The first one is the one the bar shows.
+players = run("playerctl", "-l").split()
+if not players:
+    raise SystemExit
+
+player = players[0]
+title = run("playerctl", "-p", player, "metadata", "--format", "{{title}}")
+
+# The process id of the app. The KDE browser add-on is a helper program,
+# so it reports the browser's id in "kde:pid". For every other player, ask D-Bus who owns its name.
+pid = run("playerctl", "-p", player, "metadata", "--format", "{{kde:pid}}")
+if not pid:
+    reply = run("busctl", "--user", "call", "org.freedesktop.DBus", "/org/freedesktop/DBus",
+                "org.freedesktop.DBus", "GetConnectionUnixProcessID", "s",
+                "org.mpris.MediaPlayer2." + player)  # prints for example: u 86473
+    pid = reply.split()[-1] if reply else ""
+
+windows = [w for w in json.loads(run("hyprctl", "clients", "-j")) if str(w["pid"]) == pid]
+if not windows:
+    raise SystemExit
+
+# A browser is one process with many windows.
+# Prefer the window whose title has the video's title in it.
+matching = [w for w in windows if title and title in w["title"]]
+target = (matching or windows)[0]
+
+# Focusing a window also switches to its workspace.
+run("hyprctl", "dispatch", 'hl.dsp.focus({ window = "address:%s" })' % target["address"])

@@ -1,0 +1,5 @@
+# fish writes its own state here. It is per machine.
+config/fish/fish_variables
+
+# what install.sh leaves behind when it replaces something
+*.bak-*

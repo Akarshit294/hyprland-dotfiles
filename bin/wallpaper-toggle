@@ -1,0 +1,16 @@
+#!/bin/sh
+# Switches the wallpaper between the picture and plain black.
+# Run it again to switch back. After a login the picture is back by itself.
+
+black="$HOME/.wallpapers/black.png"
+
+# The picture is the one named in hyprpaper's config, so there is one place to change it.
+picture=$(sed -n 's/^[[:space:]]*path[[:space:]]*=[[:space:]]*//p' "$HOME/.config/hypr/hyprpaper.conf" | head -n 1)
+case "$picture" in "~/"*) picture="$HOME/${picture#\~/}" ;; esac
+
+# "listactive" prints what is on screen now. The comma before the path means: every screen.
+if hyprctl hyprpaper listactive | grep -qF "$black"; then
+    hyprctl hyprpaper wallpaper ", $picture" > /dev/null
+else
+    hyprctl hyprpaper wallpaper ", $black" > /dev/null
+fi

@@ -1,0 +1,54 @@
+/* Look of the power menu (wlogout). Same CSS as on a web page.
+   Colours follow the rest of the desktop:
+   #171717 is the bar, #262626 the launcher's highlight, #e5e5e5 the focused window border.
+   The size and place of the row of buttons is not here: it is in the command
+   that the bar runs, in ~/.config/waybar/config. */
+
+* {
+    background-image: none;
+    box-shadow: none;
+    font-family: "FiraCode Nerd Font";
+    font-size: 14px;
+}
+
+/* The whole screen behind the buttons: dimmed here, blurred by Hyprland. */
+window {
+    background-color: rgba(10, 10, 10, 0.6);
+}
+
+button {
+    color: #a3a3a3;
+    background-color: rgba(23, 23, 23, 0.9);
+    border: 2px solid rgba(89, 89, 89, 0.67);
+    border-radius: 10px;
+    outline-style: none;
+    min-width: 180px; /* same width for every button, whatever the length of its name */
+
+    /* the icon */
+    background-repeat: no-repeat;
+    background-position: center 38%;
+    background-size: 30%;
+}
+
+/* The button under the mouse, or picked with the arrow keys. */
+button:focus, button:active, button:hover {
+    color: #ffffff;
+    background-color: rgba(38, 38, 38, 0.95);
+    border-color: #e5e5e5;
+}
+
+/* Icons: grey copies of wlogout's own, in ~/.config/wlogout/icons.
+   The "-on" ones are near white, for the chosen button. */
+#lock      { background-image: url("icons/lock.png"); }
+#logout    { background-image: url("icons/logout.png"); }
+#suspend   { background-image: url("icons/suspend.png"); }
+#hibernate { background-image: url("icons/hibernate.png"); }
+#reboot    { background-image: url("icons/reboot.png"); }
+#shutdown  { background-image: url("icons/shutdown.png"); }
+
+#lock:focus,      #lock:hover      { background-image: url("icons/lock-on.png"); }
+#logout:focus,    #logout:hover    { background-image: url("icons/logout-on.png"); }
+#suspend:focus,   #suspend:hover   { background-image: url("icons/suspend-on.png"); }
+#hibernate:focus, #hibernate:hover { background-image: url("icons/hibernate-on.png"); }
+#reboot:focus,    #reboot:hover    { background-image: url("icons/reboot-on.png"); }
+#shutdown:focus,  #shutdown:hover  { background-image: url("icons/shutdown-on.png"); }

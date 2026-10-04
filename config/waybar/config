@@ -1,0 +1,129 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin-bottom": 0,
+  "modules-left": [
+    "clock",
+    "custom/separator",
+    "hyprland/workspaces",
+    "custom/separator",
+    "tray",
+    "mpris#prev",
+    "mpris#play",
+    "mpris#next",
+    "mpris#title"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "network",
+    "temperature",
+    "memory",
+    "cpu",
+    "pulseaudio",
+    "battery",
+    "custom/separator",
+    "custom/powermenu"
+  ],
+  "custom/separator": {
+    "exec": "echo \"|\"",
+    "format": "{}"
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  },
+  "clock": {
+    "format": " {:%I:%M %p} ",
+    "interval": 60,
+    "tooltip": true,
+    "tooltip-format": "{:%d %B %I:%M %p}"
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "separate-outputs": true,
+    "active-only": false,
+    "all-outputs": true
+  },
+  "hyprland/window": {
+    "format": "{}"
+  },
+  "mpris#prev": {
+    "format": "",
+    "on-click": "playerctl -p playerctld previous",
+    "tooltip-format": "Previous"
+  },
+  "mpris#play": {
+    "format": "{status_icon}",
+    "status-icons": {
+      "playing": "",
+      "paused": "",
+      "stopped": ""
+    },
+    "tooltip-format": "Play / pause"
+  },
+  "mpris#next": {
+    "format": "",
+    "on-click": "playerctl -p playerctld next",
+    "tooltip-format": "Next"
+  },
+  "mpris#title": {
+    "format": "{dynamic}",
+    "dynamic-order": [
+      "title",
+      "artist"
+    ],
+    "title-len": 30,
+    "dynamic-len": 40,
+    "on-click": "~/.config/waybar/media-goto",
+    "tooltip-format": "{title}\n{artist}\n\nClick: go to the window that is playing"
+  },
+  "network": {
+    "format": "󰖩 ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "interface": "wlan0",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-disconnected": "Wi-Fi off or not connected",
+    "interval": 2
+  },
+  "temperature": {
+    "format": "{icon} {temperatureC}°C ",
+    "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 80,
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
+  },
+  "memory": {
+    "format": "󰍛 {}% ",
+    "tooltip": "false"
+  },
+  "cpu": {
+    "format": " {usage}% ",
+    "tooltip": "false"
+  },
+  "pulseaudio": {
+    "format": " {volume}%",
+    "scroll-step": 1,
+    "on-click": "pavucontrol"
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "custom/powermenu": {
+    "format": "  ",
+    "tooltip": false,
+    "on-click": "exec wlogout -p layer-shell -b 6 -c 16 -L 240 -R 240 -T 420 -B 420"
+  }
+}
